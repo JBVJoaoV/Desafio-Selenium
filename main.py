@@ -33,13 +33,13 @@ def esperar():
 # Define configurações do navegador e coloca em modo anonimo 
 options = Options()
 options.add_argument("--incognito")
+options.add_argument("--start-maximized")
 
 # Abre o navegador com as configurações definidas
 navegador = webdriver.Chrome(options=options)
 
 # Acessas o link do desafio e maximiza a tela 
 navegador.get("https://www.saucedemo.com/")
-navegador.maximize_window()
 
 # Obtem e divide os elementos contidos nas divs de creddenciais, e senha
 login_div = aguardar(navegador, By.ID, "login_credentials")
@@ -47,7 +47,7 @@ usernames = login_div.text.split("\n")[1:]
 username = usernames[0]
 
 password_div = aguardar(navegador, By.CLASS_NAME, "login_password")
-password = password_div.text.split("\n")[1:]
+password = password_div.text.split("\n")[1]
 
 # Preenche os campos com as informações obtidas, e passa para a proxima pagina
 aguardar(navegador, By.ID, "user-name").send_keys(username)
@@ -85,7 +85,7 @@ esperar()
 # Preenche as informações de Checkout e clica no botão de continuar
 nome = aguardar(navegador, By.ID, "first-name").send_keys("João")
 sobrenome = aguardar(navegador, By.ID, "last-name").send_keys("Vieira")
-zip = aguardar(navegador, By.ID, "postal-code").send_keys("00000")
+cep = aguardar(navegador, By.ID, "postal-code").send_keys("00000")
 esperar()
 
 continue_button = aguardar(navegador, By.ID, "continue").click()
